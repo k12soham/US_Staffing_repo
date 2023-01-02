@@ -601,8 +601,7 @@ public class TeamSrvices {
 			return results;
 		} else {
 			return null;
-		}
-//	System.out.printf("Today: %s\n", thisMonth.format(monthYearFormatter));		
+		}	
 	}
 	
 //------------------------------------Forgot Password Code-------------------------------------
@@ -610,8 +609,7 @@ public class TeamSrvices {
 		// TODO Auto-generated method stub
 		
 		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
-		
+		Transaction transaction = session.beginTransaction();		
 
 		Criteria crt = session.createCriteria(Employee.class);
 		crt.add(Restrictions.eq("ename", username));
@@ -718,11 +716,8 @@ public class TeamSrvices {
 	            + "<p>Ignore this email if you do remember your password, "
 	            + "or you have not made the request.</p>";
 	     
-	    message.setSubject(subject);
-	     
-	    helper.setText(content, true);
-	  
-	        
+	    message.setSubject(subject);	     
+	    helper.setText(content, true);  	        
 	    mailSender.send(message);
 
 	}
