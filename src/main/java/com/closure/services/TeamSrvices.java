@@ -563,7 +563,13 @@ public class TeamSrvices {
 			List<Closure_details> results = query.getResultList();
 
 			session.close();
-			return results;
+			
+			if (results.isEmpty()) {
+				return (List<Closure_details>) ResponseEntity.badRequest();
+			} else {
+				return results;
+			}			
+			
 		} else if (category.equals("Quarterly")) {
 
 			cr.select(root).where(cb.between(root.get("clo_date"), b, a));
@@ -612,8 +618,9 @@ public class TeamSrvices {
 		Transaction transaction = session.beginTransaction();		
 
 		Criteria crt = session.createCriteria(Employee.class);
-		crt.add(Restrictions.eq("ename", username));
-		Employee z= (Employee) crt.uniqueResult();			
+		crt.add(Restrictions.eq("username", username));
+		Employee z= (Employee) crt.uniqueResult();	
+		System.out.println("emp_name :"+ username+ "   z = "+ z);
 		
 	    if(z==null) {
 	        System.out.println("User not exist..!");
