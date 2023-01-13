@@ -48,7 +48,6 @@ public class teamController {
 
 		Employee emp = (Employee) service.validateEmp_jpa(Username, Password);
 		if (emp != null) {
-			System.out.println("Empp");
 			return new ResponseEntity<>(emp, HttpStatus.OK);
 		} else {
 			return ResponseEntity.badRequest().body("false");
