@@ -299,14 +299,15 @@ public class TeamSrvices {
 		Session session = sessionFactory.openSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		
+		int currentYear1 = LocalDate.now().getYear();
+		int lastMonth1 = LocalDate.now().getMonthValue() - 1;
 		
-		if(lastMonth==0)
+		if(lastMonth1==0)
 		{
-			lastMonth=12;
-			currentYear=currentYear-1;
+			lastMonth1=12;
+			currentYear1=currentYear1-1;
 		}
 	
-
 		LocalDate a = now;
 		System.out.println(a);
 
@@ -328,8 +329,8 @@ public class TeamSrvices {
 		if (category.equals("Last_Month")) {
 
 			cr.select(root).where((cb.equal(root.get("employee").get("empid"), empid)),
-					(cb.equal(cb.function("MONTH", Integer.class, root.get("clo_date")), lastMonth)),
-					(cb.equal(cb.function("YEAR", Integer.class, root.get("clo_date")), currentYear)));
+					(cb.equal(cb.function("MONTH", Integer.class, root.get("clo_date")), lastMonth1)),
+					(cb.equal(cb.function("YEAR", Integer.class, root.get("clo_date")), currentYear1)));
 
 			Query query = session.createQuery(cr);
 			List<Closure_details> results = query.getResultList();
@@ -546,12 +547,16 @@ public class TeamSrvices {
 
 		Session session = sessionFactory.openSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
-		if(lastMonth==0)
+		
+		
+		int currentYear1 = LocalDate.now().getYear();
+		int lastMonth1 = LocalDate.now().getMonthValue() - 1;
+		
+		if(lastMonth1==0)
 		{
-			lastMonth=12;
-			currentYear=currentYear-1;
+			lastMonth1=12;
+			currentYear1=currentYear1-1;
 		}
-	
 
 		LocalDate a = now;
 		
@@ -570,8 +575,8 @@ public class TeamSrvices {
 		
 		if (category.equals("Last_Month")) {
 			System.out.println(lastMonth);
-			cr.select(root).where(cb.equal(cb.function("MONTH", Integer.class, root.get("clo_date")), lastMonth),
-					(cb.equal(cb.function("YEAR", Integer.class, root.get("clo_date")), currentYear)));
+			cr.select(root).where(cb.equal(cb.function("MONTH", Integer.class, root.get("clo_date")), lastMonth1),
+					(cb.equal(cb.function("YEAR", Integer.class, root.get("clo_date")), currentYear1)));
 
 			Query query = session.createQuery(cr);
 		
