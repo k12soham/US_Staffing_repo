@@ -62,6 +62,7 @@ public class TeamSrvices {
 	int currentMonth = LocalDate.now().getMonthValue();
 	int currentYear = LocalDate.now().getYear();
 	int lastMonth = LocalDate.now().getMonthValue() - 1;
+	
 	int lastYear = LocalDate.now().getYear() - 1;
 
 	public Employee validateEmp_jpa(String Username, String Password) {
@@ -297,7 +298,16 @@ public class TeamSrvices {
 
 		Session session = sessionFactory.openSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
-
+		
+		int currentYear1 = LocalDate.now().getYear();
+		int lastMonth1 = LocalDate.now().getMonthValue() - 1;
+		
+		if(lastMonth1==0)
+		{
+			lastMonth1=12;
+			currentYear1=currentYear1-1;
+		}
+	
 		LocalDate a = now;
 		System.out.println(a);
 
@@ -319,12 +329,12 @@ public class TeamSrvices {
 		if (category.equals("Last_Month")) {
 
 			cr.select(root).where((cb.equal(root.get("employee").get("empid"), empid)),
-					(cb.equal(cb.function("MONTH", Integer.class, root.get("clo_date")), lastMonth)),
-					(cb.equal(cb.function("YEAR", Integer.class, root.get("clo_date")), currentYear)));
+					(cb.equal(cb.function("MONTH", Integer.class, root.get("clo_date")), lastMonth1)),
+					(cb.equal(cb.function("YEAR", Integer.class, root.get("clo_date")), currentYear1)));
 
 			Query query = session.createQuery(cr);
 			List<Closure_details> results = query.getResultList();
-
+			System.out.println(results);
 			session.close();
 //			return results;
 			if (results.isEmpty()) {
@@ -537,31 +547,41 @@ public class TeamSrvices {
 
 		Session session = sessionFactory.openSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
+		
+		
+		int currentYear1 = LocalDate.now().getYear();
+		int lastMonth1 = LocalDate.now().getMonthValue() - 1;
+		
+		if(lastMonth1==0)
+		{
+			lastMonth1=12;
+			currentYear1=currentYear1-1;
+		}
 
 		LocalDate a = now;
-		System.out.println(a);
+		
 
 		LocalDate b = now.minusMonths(3);
-		System.out.println(b);
+		
 
 		LocalDate c = now.minusMonths(6);
-		System.out.println(c);
+		
 
 		LocalDate d = now.minusMonths(12);
-		System.out.println(d);
+		
 
 		CriteriaQuery<Closure_details> cr = cb.createQuery(Closure_details.class);
 		Root<Closure_details> root = cr.from(Closure_details.class);
-
+		
 		if (category.equals("Last_Month")) {
-
-			cr.select(root).where(cb.equal(cb.function("MONTH", Integer.class, root.get("clo_date")), lastMonth),
-					(cb.equal(cb.function("YEAR", Integer.class, root.get("clo_date")), currentYear)));
+			System.out.println(lastMonth);
+			cr.select(root).where(cb.equal(cb.function("MONTH", Integer.class, root.get("clo_date")), lastMonth1),
+					(cb.equal(cb.function("YEAR", Integer.class, root.get("clo_date")), currentYear1)));
 
 			Query query = session.createQuery(cr);
-
+		
 			List<Closure_details> results = query.getResultList();
-
+			System.out.println(results);
 			session.close();
 			
 			if (results.isEmpty()) {
