@@ -39,8 +39,6 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public Employee(Integer empid, String emp_name, String username, String password, String role,
 			int resetPasswordToken, List<Closure_details> cl_details) {
 		super();
@@ -103,18 +101,12 @@ public class Employee {
 		this.cl_details = cl_details;
 	}
 
-
-
 	public int getResetPasswordToken() {
 		return resetPasswordToken;
 	}
 
-
-
 	public void setResetPasswordToken(int resetPasswordToken) {
 		this.resetPasswordToken = resetPasswordToken;
 	}
-	
-	
-
 }
+
